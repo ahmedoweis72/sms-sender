@@ -11,6 +11,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 type SMSLists struct {
@@ -40,8 +41,10 @@ func main() {
 }
 
 func funcsms(Accountid int, Pass string, Name string, Receiver int, Text string) {
-	message := "AccountId=" + string(Accountid) + "&Password=" + Pass + "&SenderName=" + Name + "&ReceiverMSISDN=" + string(Receiver) +
-		"&SMSText=" + Text
+	AccountIdStr := strconv.Itoa(Accountid)
+	ReceiverStr := strconv.Itoa(Receiver)
+	message := "AccountId=" + AccountIdStr + "&Password=" + Pass + "&SenderName=" + Name + "&ReceiverMSISDN=" + ReceiverStr + "&SMSText=" + Text
+	fmt.Println(message)
 	key := "F5B4064ABB0646F9986E154C5AFF0FD7"
 
 	// Convert the key and message to byte arrays
