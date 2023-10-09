@@ -40,7 +40,8 @@ func main() {
 }
 
 func funcsms(Accountid int, Pass string, Name string, Receiver int, Text string) {
-	message := string(Accountid) + Pass + Name + string(Receiver) + Text
+	message := "AccountId=" + string(Accountid) + "&Password=" + Pass + "&SenderName=" + Name + "&ReceiverMSISDN=" + string(Receiver) +
+		"&SMSText=" + Text
 	key := "F5B4064ABB0646F9986E154C5AFF0FD7"
 
 	// Convert the key and message to byte arrays
