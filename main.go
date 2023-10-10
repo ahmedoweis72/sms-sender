@@ -43,24 +43,19 @@ func main() {
 func funcsms(Accountid int, Pass string, Name string, Receiver int, Text string) {
 	AccountIdStr := strconv.Itoa(Accountid)
 	ReceiverStr := strconv.Itoa(Receiver)
-	message := "AccountId=" + AccountIdStr + "&Password=" + Pass + "&SenderName=" + Name + "&ReceiverMSISDN=" + ReceiverStr + "&SMSText=" + Text
-	fmt.Println(message)
+	secureStr := "AccountId=" + AccountIdStr + "&Password=" + Pass + "&SenderName=" + Name + "&ReceiverMSISDN=" + ReceiverStr + "&SMSText=" + Text
+
 	key := "F5B4064ABB0646F9986E154C5AFF0FD7"
 
-	// Convert the key and message to byte arrays
 	keyBytes := []byte(key)
-	messageBytes := []byte(message)
+	secureStrBytes := []byte(secureStr)
 
-	// Create a new HMAC hasher using SHA-256 and the key
 	hasher := hmac.New(sha256.New, keyBytes)
 
-	// Write the message to the hasher
-	hasher.Write(messageBytes)
+	hasher.Write(secureStrBytes)
 
-	// Compute the HMAC
 	result := hasher.Sum(nil)
 
-	// Convert the result to a hexadecimal string
 	hexResult := hex.EncodeToString(result)
 	bk := SubmitSMSRequest{
 		XMLNS:      "http://www.edafa.com/web2sms/sms/model/",
@@ -78,7 +73,6 @@ func funcsms(Accountid int, Pass string, Name string, Receiver int, Text string)
 	enc.Indent("", "\t")
 
 	err := enc.Encode(&bk)
-	fmt.Println(os.Stderr)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
