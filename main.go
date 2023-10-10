@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type SMSLists struct {
@@ -44,11 +45,11 @@ func funcsms(Accountid int, Pass string, Name string, Receiver int, Text string)
 	AccountIdStr := strconv.Itoa(Accountid)
 	ReceiverStr := strconv.Itoa(Receiver)
 	secureStr := "AccountId=" + AccountIdStr + "&Password=" + Pass + "&SenderName=" + Name + "&ReceiverMSISDN=" + ReceiverStr + "&SMSText=" + Text
-
+	secureHASHStr := strings.ReplaceAll(secureStr, " ", "")
 	key := "F5B4064ABB0646F9986E154C5AFF0FD7"
 
 	keyBytes := []byte(key)
-	secureStrBytes := []byte(secureStr)
+	secureStrBytes := []byte(secureHASHStr)
 
 	hasher := hmac.New(sha256.New, keyBytes)
 
