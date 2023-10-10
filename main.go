@@ -85,14 +85,11 @@ func funcsms(Accountid int, Pass string, Name string, Receiver int, Text string)
 
 	defer resp.Body.Close()
 
-	// Read the response body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Print the response body in xml
-	//fmt.Println(string(body))
 	xmlData := string(body)
 	var response SubmitSMSResponse
 	err = xml.Unmarshal([]byte(xmlData), &response)
